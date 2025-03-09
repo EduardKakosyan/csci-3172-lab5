@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Recipe Recommender - Find recipes based on your ingredients and dietary restrictions"
+    />
+    <title>Recipe Recommender</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="bg-gray-50 text-gray-800 min-h-screen">
+    <header class="bg-emerald-600 text-white shadow-md">
+      <div class="container mx-auto px-4 py-6">
+        <h1 class="text-3xl font-bold text-center" id="main-heading">
+          Recipe Recommender
+        </h1>
+        <p class="text-center mt-2">
+          Find delicious recipes based on your ingredients and dietary
+          preferences
+        </p>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <section class="mb-10" aria-labelledby="search-heading">
+        <h2 id="search-heading" class="text-2xl font-semibold mb-4">
+          Find Recipes
+        </h2>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <form id="recipe-search-form" class="space-y-4">
+            <div>
+              <label for="ingredients" class="block text-sm font-medium mb-1"
+                >Ingredients (comma separated)</label
+              >
+              <input
+                type="text"
+                id="ingredients"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                placeholder="e.g., chicken, rice, onions"
+                aria-required="true"
+                required
+              />
+              <p
+                id="ingredients-error"
+                class="text-red-500 text-sm mt-1 hidden"
+              >
+                Please enter at least one ingredient
+              </p>
+            </div>
+
+            <div>
+              <fieldset>
+                <legend class="block text-sm font-medium mb-1">
+                  Dietary Restrictions
+                </legend>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  <div class="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="vegetarian"
+                      name="diet"
+                      value="vegetarian"
+                      class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                    />
+                    <label for="vegetarian" class="ml-2 text-sm"
+                      >Vegetarian</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="vegan"
+                      name="diet"
+                      value="vegan"
+                      class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                    />
+                    <label for="vegan" class="ml-2 text-sm">Vegan</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="gluten-free"
+                      name="diet"
+                      value="gluten free"
+                      class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                    />
+                    <label for="gluten-free" class="ml-2 text-sm"
+                      >Gluten Free</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="dairy-free"
+                      name="diet"
+                      value="dairy free"
+                      class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                    />
+                    <label for="dairy-free" class="ml-2 text-sm"
+                      >Dairy Free</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="keto"
+                      name="diet"
+                      value="ketogenic"
+                      class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                    />
+                    <label for="keto" class="ml-2 text-sm">Keto</label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="paleo"
+                      name="diet"
+                      value="paleo"
+                      class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+                    />
+                    <label for="paleo" class="ml-2 text-sm">Paleo</label>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div>
+              <label for="recipe-count" class="block text-sm font-medium mb-1"
+                >Number of Recipes</label
+              >
+              <select
+                id="recipe-count"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              >
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+
+            <div class="flex justify-center pt-2">
+              <button
+                type="submit"
+                id="search-button"
+                class="px-6 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors"
+                aria-label="Search for recipes"
+              >
+                <i class="fas fa-search mr-2" aria-hidden="true"></i>Search
+                Recipes
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section
+        id="loading-section"
+        class="hidden text-center py-10"
+        aria-live="polite"
+      >
+        <div
+          class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-600"
+        ></div>
+        <p class="mt-4 text-lg">Searching for delicious recipes...</p>
+      </section>
+
+      <section
+        id="error-section"
+        class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded"
+        aria-live="assertive"
+      >
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+          </div>
+          <div class="ml-3">
+            <p id="error-message" class="text-sm">
+              An error occurred while searching for recipes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="results-section"
+        class="hidden"
+        aria-labelledby="results-heading"
+      >
+        <h2 id="results-heading" class="text-2xl font-semibold mb-4">
+          Recipe Results
+        </h2>
+        <p id="results-count" class="mb-4">
+          Found <span id="recipe-count-display">0</span> recipes based on your
+          criteria.
+        </p>
+
+        <div
+          id="recipe-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <!-- Recipe cards will be dynamically inserted here -->
+        </div>
+      </section>
+
+      <section
+        id="no-results-section"
+        class="hidden text-center py-10"
+        aria-live="polite"
+      >
+        <i
+          class="fas fa-search text-5xl text-gray-400 mb-4"
+          aria-hidden="true"
+        ></i>
+        <h2 class="text-2xl font-semibold mb-2">No Recipes Found</h2>
+        <p class="text-gray-600">
+          Try different ingredients or fewer dietary restrictions.
+        </p>
+      </section>
+
+      <section
+        id="suggestions-section"
+        class="mt-10 hidden"
+        aria-labelledby="suggestions-heading"
+      >
+        <h2 id="suggestions-heading" class="text-2xl font-semibold mb-4">
+          Recipe Suggestions
+        </h2>
+        <p class="mb-4">Here are some popular recipes you might like:</p>
+
+        <div
+          id="suggestions-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <!-- Suggestion cards will be dynamically inserted here -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Recipe Modal -->
+    <div
+      id="recipe-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      aria-modal="true"
+      role="dialog"
+      aria-labelledby="modal-title"
+    >
+      <div
+        class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        <div class="p-6">
+          <div class="flex justify-between items-start">
+            <h3 id="modal-title" class="text-2xl font-bold"></h3>
+            <button
+              id="close-modal"
+              class="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-md"
+              aria-label="Close recipe details"
+            >
+              <i class="fas fa-times text-xl" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div id="modal-content" class="mt-4">
+            <!-- Recipe details will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-6 mt-10">
+      <div class="container mx-auto px-4">
+        <p class="text-center">
+          &copy; 2024 Recipe Recommender. Powered by
+          <a
+            href="https://spoonacular.com/food-api"
+            class="text-emerald-400 hover:text-emerald-300 focus:outline-none focus:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Spoonacular API</a
+          >.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="js/app.js"></script>
+  </body>
+</html>

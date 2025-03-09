@@ -1,0 +1,119 @@
+/* Custom styles for Recipe Recommender App */
+
+/* Focus styles for better accessibility */
+:focus {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+}
+
+/* Skip to content link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #059669;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Recipe card styles */
+.recipe-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recipe-card:hover, 
+.recipe-card:focus-within {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure good contrast for text on images */
+.recipe-card-title {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Improve accessibility for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #059669;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #047857;
+}
+
+/* Ensure modal has proper focus trap */
+.modal-open {
+  overflow: hidden;
+}
+
+/* Ensure proper spacing for recipe details */
+.recipe-details-section {
+  margin-bottom: 1.5rem;
+}
+
+.recipe-details-section:last-child {
+  margin-bottom: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  a:link {
+    color: #0000EE;
+  }
+  
+  a:visited {
+    color: #551A8B;
+  }
+  
+  button, 
+  input[type="submit"] {
+    border: 2px solid black;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .recipe-card {
+    transform: none !important;
+  }
+}
