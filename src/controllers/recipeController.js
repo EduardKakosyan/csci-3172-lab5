@@ -16,7 +16,6 @@ class RecipeController {
       
       console.log('Search request received with params:', req.query);
       
-      // Validate required parameters
       if (!ingredients) {
         return res.status(400).json({
           success: false,
@@ -24,11 +23,9 @@ class RecipeController {
         });
       }
       
-      // Parse ingredients and diets into arrays
       const ingredientsArray = ingredients.split(',').map(item => item.trim());
       const dietsArray = diets ? diets.split(',').map(item => item.trim()) : [];
       
-      // Parse number parameter
       const parsedNumber = number ? parseInt(number, 10) : 10;
       
       console.log('Parsed parameters:', {
@@ -37,7 +34,6 @@ class RecipeController {
         parsedNumber
       });
       
-      // Search for recipes
       const recipes = await ApiHelper.searchRecipesByIngredients(
         ingredientsArray,
         dietsArray,
@@ -66,7 +62,6 @@ class RecipeController {
     try {
       const { id } = req.params;
       
-      // Validate recipe ID
       if (!id) {
         return res.status(400).json({
           success: false,
@@ -74,7 +69,6 @@ class RecipeController {
         });
       }
       
-      // Get recipe details
       const recipe = await ApiHelper.getRecipeById(id);
       
       return res.status(200).json({
@@ -82,7 +76,6 @@ class RecipeController {
         data: recipe,
       });
     } catch (error) {
-      // Handle 404 errors specifically
       if (error.response && error.response.status === 404) {
         return res.status(404).json({
           success: false,
@@ -104,13 +97,10 @@ class RecipeController {
     try {
       const { diets, number } = req.query;
       
-      // Parse diets into array
       const dietsArray = diets ? diets.split(',').map(item => item.trim()) : [];
       
-      // Parse number parameter
       const parsedNumber = number ? parseInt(number, 10) : 10;
       
-      // Get recipe suggestions
       const suggestions = await ApiHelper.getRecipeSuggestions(
         dietsArray,
         parsedNumber
