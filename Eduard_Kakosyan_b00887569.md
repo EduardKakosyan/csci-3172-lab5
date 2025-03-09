@@ -3,7 +3,7 @@
 ## Links
 
 * [Lab 5 Gitlab](https://git.cs.dal.ca/kakosyan/csci3172/-/tree/main/labs/lab5)
-* [Lab 5 Netlify](https://web.cs.dal.ca/~kakosyan/csci3172/labs/lab4/)
+* [Lab 5 Netlify](https://charming-mochi-d291c3.netlify.app/)
 
 * *Date Created*: March 9 2025
 * *Last Modification Date*: March 9 2025
