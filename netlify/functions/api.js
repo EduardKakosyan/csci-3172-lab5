@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API Routes - Note the base path change
+// API Routes
 app.use('/api/recipes', recipeRoutes);
 
 // Error handling middleware
